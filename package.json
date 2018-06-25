@@ -22,7 +22,7 @@
     "update-notifier": "^2.5.0"
   },
   "engines": {
-    "node": "0.10.x",
+    "node": "10.5.0",
     "npm": "6.1.0"
   }
 }
