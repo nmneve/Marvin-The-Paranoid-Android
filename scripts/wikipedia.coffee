@@ -18,7 +18,7 @@ WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
 WIKI_EN_URL = "https://en.wikipedia.org/wiki"
 
 module.exports = (robot) ->
-    robot.respond /wiki (.+)/, id: "wikipedia", (res) ->
+    robot.respond /wiki (.+)/i, id: "wikipedia", (res) ->
         search = res.match[1].trim()
         params =
             action: "opensearch"
@@ -32,7 +32,11 @@ module.exports = (robot) ->
                 return
 
             for article in object[1]
-                res.send "#{article}: #{createURL(article)}"
+                message =
+                    text: "#{article}: #{createURL(article)}"
+                    unfurl_links: false
+
+                res.send message
 
     robot.respond /wiki search (.+)/i, id: "wikipedia.search", (res) ->
         search = res.match[1].trim()
@@ -55,7 +59,7 @@ module.exports = (robot) ->
                 res.send message
 
 
-    robot.respond /wiki summary (.+)/i, id: "wikipedia.summary", (res) ->
+    robot.respond / (.+)/i, id: "wikipedia.summary", (res) ->
         target = res.match[1].trim()
         params =
             action: "query"
@@ -77,8 +81,11 @@ module.exports = (robot) ->
                 else
                     summary = article.extract.split(". ")[0..1].join ". "
 
-                res.send "#{article.title}: #{summary}."
-                res.reply "Original article: #{createURL(article.title)}"
+                message =
+                    text: "#{article}: #{createURL(article)}"
+                    unfurl_links: false
+
+                res.send message
                 return
 
 createURL = (title) ->
