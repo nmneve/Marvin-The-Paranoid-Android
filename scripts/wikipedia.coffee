@@ -38,7 +38,7 @@ module.exports = (robot) ->
 
                 res.send message
 
-    robot.respond /wiki search (.+)/i, id: "wikipedia.search", (res) ->
+    robot.respond /search (.+)/i, id: "wikipedia.search", (res) ->
         search = res.match[1].trim()
         params =
             action: "opensearch"
@@ -59,7 +59,7 @@ module.exports = (robot) ->
                 res.send message
 
 
-    robot.respond / (.+)/i, id: "wikipedia.summary", (res) ->
+    robot.respond /describe (.+)/i, id: "wikipedia.summary", (res) ->
         target = res.match[1].trim()
         params =
             action: "query"
@@ -81,11 +81,7 @@ module.exports = (robot) ->
                 else
                     summary = article.extract.split(". ")[0..1].join ". "
 
-                message =
-                    text: "#{article}: #{createURL(article)}"
-                    unfurl_links: false
-
-                res.send message
+                res.send "#{article.title}: #{summary}."
                 return
 
 createURL = (title) ->
