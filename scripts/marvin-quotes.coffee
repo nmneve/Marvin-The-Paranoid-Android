@@ -1,4 +1,4 @@
-.# Description:
+# Description:
 #   Marvin the Paranoid Android quotes
 #
 # Dependencies:
@@ -9,8 +9,8 @@
 #
 # Commands:
 #   hubot how are you - replies with a quote
-#   hubot what's up - replies with a quote
-#   hubot hitchhike me - replies with a quote
+#   hubot what is up - replies with a quote
+#   hubot any ideas - replies with a quote
 #
 
 feelingsQuotes = [
@@ -60,7 +60,9 @@ ideaQuotes = [
 module.exports = (robot) ->
   robot.hear /how are you/i, (msg) ->
     msg.send msg.random feelingsQuotes
-  robot.hear /(what's|what is) up/i, (msg) ->
+
+  robot.hear /what is up/i, (msg) ->
     msg.send msg.random upQuote
+
   robot.hear /any ideas/i, (msg) ->
     msg.send msg.random ideaQuotes
