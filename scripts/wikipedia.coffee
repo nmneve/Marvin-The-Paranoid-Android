@@ -8,8 +8,9 @@
 #   None
 #
 # Commands:
-#   hubot wiki search <query> - Returns the first 5 Wikipedia articles matching the search <query>
-#   hubot wiki summary <article> - Returns a one-line description about <article>
+#   hubot wiki <query> - Returns the first Wikipedia articles matching the search <query>
+#   hubot search <query> - Returns the first 5 Wikipedia articles matching the search <query>
+#   hubot describe <article> - Returns a one-line description about <article>
 #
 # Author:
 #   MrSaints
