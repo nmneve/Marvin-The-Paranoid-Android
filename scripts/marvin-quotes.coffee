@@ -50,6 +50,20 @@ upQuote = [
   "I don't know, I've never been there."
 ]
 
+test = [
+  "Having solved all the major mathematical, physical, chemical, biological, sociological, philosophical, etymological, meteorological and psychological problems of the Universe except for his own, three times over, I was severely stuck for something to do, and had taken up composing short dolorous ditties of no tone, or indeed tune. The latest one was a lullaby.
+  
+  _Now the world has gone to bed,
+  Darkness won't engulf my head,
+  I can see in infrared,
+  How I hate the night.
+
+  Now I lay me down to sleep,
+  Try to count electric sheep,
+  Sweet dream wishes you can keep,
+  How I hate the night._"
+]
+
 ideaQuotes = [
   "I have a million ideas. They all point to certain death."
   "I'd give you advice, but you wouldn't listen. No one ever does."
@@ -60,9 +74,9 @@ ideaQuotes = [
 module.exports = (robot) ->
   robot.hear /how are you/i, (msg) ->
     msg.send msg.random feelingsQuotes
-
   robot.hear /what is up/i, (msg) ->
     msg.send msg.random upQuote
-
   robot.hear /any ideas/i, (msg) ->
     msg.send msg.random ideaQuotes
+  robot.hear /test/i, (msg) ->
+    msg.send msg.random test
