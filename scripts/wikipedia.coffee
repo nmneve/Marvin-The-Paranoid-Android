@@ -18,22 +18,6 @@ WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
 WIKI_EN_URL = "https://en.wikipedia.org/wiki"
 
 module.exports = (robot) ->
-    ###robot.respond /wiki (.+)/i, id: "wikipedia.search", (res) ->
-        search = res.match[1].trim()
-        params =
-            action: "opensearch"
-            format: "json"
-            limit: 1
-            search: search
-
-        wikiRequest res, params, (object) ->
-            if object[1].length is 0
-                res.reply "No articles were found using search query: \"#{search}\". Try a different query."
-                return
-
-            for article in object[1]
-                res.send "#{article}: #{createURL(article)}"###
-
     robot.respond /wiki search (.+)/i, id: "wikipedia.search", (res) ->
         search = res.match[1].trim()
         params =
