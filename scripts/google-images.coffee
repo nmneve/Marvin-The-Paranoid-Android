@@ -20,9 +20,9 @@ module.exports = (robot) ->
     imageMe msg, msg.match[1], (url) ->
       msg.send url
 
-  robot.respond /(.+) gif me/i, (msg) ->
-    imageMe msg, msg.match[2], true, (url) ->
-      msg.send url
+  # robot.respond /(.+) gif me/i, (msg) ->
+  #   imageMe msg, msg.match[2], true, (url) ->
+  #     msg.send url
 
   # pro feature, not added to docs since you can't conditionally document commands
   if process.env.HUBOT_GOOGLE_IMAGES_HEAR?
@@ -30,9 +30,9 @@ module.exports = (robot) ->
       imageMe msg, msg.match[2], (url) ->
         msg.send url
 
-    robot.hear /^animate me (.+)/i, (msg) ->
-      imageMe msg, msg.match[1], true, (url) ->
-        msg.send url
+    # robot.hear /^animate me (.+)/i, (msg) ->
+    #   imageMe msg, msg.match[1], true, (url) ->
+    #     msg.send url
 
   robot.respond /(?:mo?u)?sta(?:s|c)h(?:e|ify)?(?: me)? (.+)/i, (msg) ->
     if not process.env.HUBOT_MUSTACHIFY_URL?
