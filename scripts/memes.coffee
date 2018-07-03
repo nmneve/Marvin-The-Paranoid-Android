@@ -9,7 +9,6 @@
 #
 # Commands:
 #   hubot meme list - List of memes and their codes
-#   hubot meme show - Show all memes and their codes
 #   hubot meme (meme) "top message" "bottom message"
 #
 # Author:

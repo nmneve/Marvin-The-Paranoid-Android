@@ -11,7 +11,6 @@
 #
 # Commands:
 #   hubot <query> me - The Original. Queries Google Images for <query> and returns a random top result.
-#   hubot <query> gif me - The same thing as `image me`, except adds a few parameters to try to return an animated GIF instead.
 #   hubot mustache me <url|query> - Adds a mustache to the specified URL or query result.
 
 module.exports = (robot) ->

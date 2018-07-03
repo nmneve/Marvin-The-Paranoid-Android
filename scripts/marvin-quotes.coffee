@@ -8,9 +8,9 @@
 #   None
 #
 # Commands:
-#   hubot how are you - replies with a quote
-#   hubot what is up - replies with a quote
-#   hubot any ideas - replies with a quote
+#   hubot how are you - Returns feelings
+#   hubot what is up - Tells you what's up
+#   hubot any ideas - Asks for an idea
 #
 
 feelingsQuotes = [
