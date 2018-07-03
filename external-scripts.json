@@ -8,5 +8,6 @@
   "hubot-rules",
   "hubot-shipit",
   "hubot-plusplus",
-  "hubot-weather"
+  "hubot-weather",
+  "hubot-improve-random"
 ]
