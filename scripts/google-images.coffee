@@ -16,7 +16,7 @@
 
 module.exports = (robot) ->
 
-  robot.respond /(.+)( me)?/i, (msg) ->
+  robot.respond /t(.+)( me)?/i, (msg) ->
     imageMe msg, msg.match[3], (url) ->
       msg.send url
 
