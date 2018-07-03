@@ -11,7 +11,6 @@
 #
 # Commands:
 #   hubot <query> me - The Original. Queries Google Images for <query> and returns a random top result.
-#   hubot mustache me <url|query> - Adds a mustache to the specified URL or query result.
 
 module.exports = (robot) ->
 
@@ -33,23 +32,23 @@ module.exports = (robot) ->
     #   imageMe msg, msg.match[1], true, (url) ->
     #     msg.send url
 
-  robot.respond /(?:mo?u)?sta(?:s|c)h(?:e|ify)?(?: me)? (.+)/i, (msg) ->
-    if not process.env.HUBOT_MUSTACHIFY_URL?
-      msg.send "Sorry, the Mustachify server is not configured."
-        , "http://i.imgur.com/BXbGJ1N.png"
-      return
-    mustacheBaseUrl =
-      process.env.HUBOT_MUSTACHIFY_URL?.replace(/\/$/, '')
-    mustachify = "#{mustacheBaseUrl}/rand?src="
-    imagery = msg.match[1]
+  # robot.respond /(?:mo?u)?sta(?:s|c)h(?:e|ify)?(?: me)? (.+)/i, (msg) ->
+  #   if not process.env.HUBOT_MUSTACHIFY_URL?
+  #     msg.send "Sorry, the Mustachify server is not configured."
+  #       , "http://i.imgur.com/BXbGJ1N.png"
+  #     return
+  #   mustacheBaseUrl =
+  #     process.env.HUBOT_MUSTACHIFY_URL?.replace(/\/$/, '')
+  #   mustachify = "#{mustacheBaseUrl}/rand?src="
+  #   imagery = msg.match[1]
 
-    if imagery.match /^https?:\/\//i
-      encodedUrl = encodeURIComponent imagery
-      msg.send "#{mustachify}#{encodedUrl}"
-    else
-      imageMe msg, imagery, false, true, (url) ->
-        encodedUrl = encodeURIComponent url
-        msg.send "#{mustachify}#{encodedUrl}"
+  #   if imagery.match /^https?:\/\//i
+  #     encodedUrl = encodeURIComponent imagery
+  #     msg.send "#{mustachify}#{encodedUrl}"
+  #   else
+  #     imageMe msg, imagery, false, true, (url) ->
+  #       encodedUrl = encodeURIComponent url
+  #       msg.send "#{mustachify}#{encodedUrl}"
 
 imageMe = (msg, query, animated, faces, cb) ->
   cb = animated if typeof animated == 'function'
