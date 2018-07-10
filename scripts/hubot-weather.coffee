@@ -31,7 +31,7 @@ module.exports = (robot) ->
         else
           msg.send "Forecast for today in #{data.name}, #{data.sys.country}\nCondition: #{data.weather[0].main}, #{data.weather[0].description}\nTemperature (min/max): #{data.main.temp_min}°#{units[unitsKey]} / #{data.main.temp_max}°#{units[unitsKey]}\nHumidity: #{data.main.humidity}%\nType: #{data.sys.type}\n\nLast updated: #{new Date(data.dt * 1000)}"
 
-  robot.respond /weather/i, (msg) ->
+  robot.respond /^weather$/i, (msg) ->
     APIKEY = process.env.HUBOT_OWM_APIKEY or null
     if APIKEY == null
       msg.send "HUBOT_OWM_APIKEY environment varibale is not provided for hubot-weather"
