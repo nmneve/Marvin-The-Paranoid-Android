@@ -10,8 +10,8 @@
 #   HUBOT_DARK_SKY_UNITS (optional - us, si, ca, or uk)
 #
 # Commands:
-#   hubot weather - Get the weather for Winnipeg
-#   hubot weather <location> - Get the weather for <location>
+#   hubot weather - Get the weather for Winnipeg (Powered by DarkSky https://darksky.net/poweredby/)
+#   hubot weather <location> - Get the weather for <location> (Powered by DarkSky https://darksky.net/poweredby/)
 #
 # Notes:
 #   If HUBOT_DARK_SKY_DEFAULT_LOCATION is blank, weather commands without a location will be ignored
@@ -41,10 +41,10 @@ module.exports = (robot) ->
           lat = result.results[0].geometry.location.lat
           lng = result.results[0].geometry.location.lng
           darkSkyMe msg, lat,lng , options.separator, (darkSkyText) ->
-            response = "Weather for #{result.results[0].formatted_address} (Powered by DarkSky https://darksky.net/poweredby/)#{options.separator}#{darkSkyText}"
+            response = "Weather for #{result.results[0].formatted_address} #{options.separator}#{darkSkyText}"
               .replace /-?(\d+\.?\d*)°C/g, (match) ->
                 centigrade = match.replace /°C/, ''
-                match = Math.round(centigrade*10)/10 + '°C/' + Math.round(centigrade * (9/5) + parseInt(32, 10)) + '°F'
+                match = Math.round(centigrade*10) / 10 + '°C/'
             response += "#{options.separator}"
             msg.send response
         else
