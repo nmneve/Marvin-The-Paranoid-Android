@@ -21,10 +21,14 @@
 #   Justin
 
 module.exports = (robot) ->
-
   robot.respond /weather ?(.+)?/i, (msg) ->
     location = msg.match[1] || process.env.HUBOT_DARK_SKY_DEFAULT_LOCATION
     return if not location
+
+    options =
+      separator: process.env.HUBOT_DARK_SKY_SEPARATOR
+    unless options.separator
+      options.separator = "\n"
 
     googleurl = "http://maps.googleapis.com/maps/api/geocode/json"
     q = sensor: false, address: location
@@ -36,16 +40,18 @@ module.exports = (robot) ->
         if result.results.length > 0
           lat = result.results[0].geometry.location.lat
           lng = result.results[0].geometry.location.lng
-          darkSkyMe msg, lat,lng , (darkSkyText) ->
-            response = "Weather for #{result.results[0].formatted_address}. #{darkSkyText}"
+          darkSkyMe msg, lat,lng , options.separator, (darkSkyText) ->
+            response = "Weather for #{result.results[0].formatted_address} (Powered by DarkSky https://darksky.net/poweredby/)#{options.separator}#{darkSkyText}"
+              .replace /-?(\d+\.?\d*)°C/g, (match) ->
+                centigrade = match.replace /°C/, ''
+                match = Math.round(centigrade*10)/10 + '°C/' + Math.round(centigrade * (9/5) + parseInt(32, 10)) + '°F'
+            response += "#{options.separator}"
             msg.send response
         else
           msg.send "Couldn't find #{location}"
 
-darkSkyMe = (msg, lat, lng, cb) ->
-  url = "https://api.forecast.io/forecast/#{process.env.HUBOT_DARK_SKY_API_KEY}/#{lat},#{lng}/"
-  if process.env.HUBOT_DARK_SKY_UNITS
-    url += "?units=#{process.env.HUBOT_DARK_SKY_UNITS}"
+darkSkyMe = (msg, lat, lng, separator, cb) ->
+  url = "https://api.darksky.net/forecast/#{process.env.HUBOT_DARK_SKY_API_KEY}/#{lat},#{lng}/?units=si"
   msg.http(url)
     .get() (err, res, body) ->
       result = JSON.parse(body)
@@ -54,15 +60,7 @@ darkSkyMe = (msg, lat, lng, cb) ->
         cb "#{result.error}"
         return
 
-      isFahrenheit = process.env.HUBOT_DARK_SKY_UNITS == "us"
-      if isFahrenheit
-        fahrenheit = result.currently.temperature
-        celsius = (fahrenheit - 32) * (5 / 9)
-      else
-        celsius = result.currently.temperature
-        fahrenheit = celsius * (9 / 5) + 32
-      response = "Currently: #{result.currently.summary} (#{fahrenheit}°F/"
-      response += "#{celsius}°C). "
-      response += "Today: #{result.hourly.summary} "
-      response += "Coming week: #{result.daily.summary}"
+      response = "Currently: #{result.currently.summary} #{result.currently.temperature}°C"
+      response += "#{separator}Today: #{result.hourly.summary}"
+      response += "#{separator}Coming week: #{result.daily.summary}"
       cb response
