@@ -10,7 +10,7 @@
 #   HUBOT_GOOGLE_IMAGES_FALLBACK - The URL to use when API fails. `{q}` will be replaced with the query string.
 #
 # Commands:
-#   hubot <query> me - The Original. Queries Google Images for <query> and returns a random top result.
+#   hubot <query> me - Queries Google Images for <query> and returns a random top result
 
 module.exports = (robot) ->
 

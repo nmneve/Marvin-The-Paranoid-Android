@@ -6,6 +6,6 @@
   "hubot-redis-brain",
   "hubot-rules",
   "hubot-plusplus",
-  "hubot-weather",
-  "hubot-improve-random"
+  "hubot-improve-random",
+  "hubot-stache"
 ]
