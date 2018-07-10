@@ -1,48 +1,68 @@
-# Description:
-#   Hubot script to show weather for some city
+# Description
+#   Grabs the current forecast from Dark Sky
 #
-# Dependencies:
+# Dependencies
 #   None
 #
-# Configuration:
-#   HUBOT_OWM_APIKEY: required, openweathermap API key
-#   HUBOT_WEATHER_UNITS: optional, 'imperial' or 'metric'
+# Configuration
+#   HUBOT_DARK_SKY_API_KEY
+#   HUBOT_DARK_SKY_DEFAULT_LOCATION
+#   HUBOT_DARK_SKY_UNITS (optional - us, si, ca, or uk)
 #
 # Commands:
-#   hubot weather in <city> - Show today forecast for interested city.
+#   hubot weather - Get the weather for Winnipeg
+#   hubot weather <location> - Get the weather for <location>
+#
+# Notes:
+#   If HUBOT_DARK_SKY_DEFAULT_LOCATION is blank, weather commands without a location will be ignored
 #
 # Author:
-#   skibish
+#   kyleslattery
+#   Justin
 
 module.exports = (robot) ->
-  robot.respond /weather (.*)/i, (msg) ->
-    APIKEY = process.env.HUBOT_OWM_APIKEY or null
-    if APIKEY == null
-      msg.send "HUBOT_OWM_APIKEY environment varibale is not provided for hubot-weather"
-    units = {metric: "C", imperial: "F"}
-    UNITS_ENV = process.env.HUBOT_WEATHER_UNITS
-    unitsKey = if units[UNITS_ENV] then UNITS_ENV else "metric"
-    msg.http("http://api.openweathermap.org/data/2.5/weather?q=#{msg.match[1]}&units=#{unitsKey}&APPID=#{APIKEY}")
-      .header('Accept', 'application/json')
-      .get() (err, res, body) ->
-        data = JSON.parse(body)
-        if data.message
-          msg.send "#{data.message}"
-        else
-          msg.send "Forecast for today in #{data.name}, #{data.sys.country}\nCondition: #{data.weather[0].main}, #{data.weather[0].description}\nTemperature (min/max): #{data.main.temp_min}°#{units[unitsKey]} / #{data.main.temp_max}°#{units[unitsKey]}\nHumidity: #{data.main.humidity}%\nType: #{data.sys.type}\n\nLast updated: #{new Date(data.dt * 1000)}"
 
-  robot.hear /weather$/i, (msg) ->
-    APIKEY = process.env.HUBOT_OWM_APIKEY or null
-    if APIKEY == null
-      msg.send "HUBOT_OWM_APIKEY environment varibale is not provided for hubot-weather"
-    units = {metric: "C", imperial: "F"}
-    UNITS_ENV = process.env.HUBOT_WEATHER_UNITS
-    unitsKey = if units[UNITS_ENV] then UNITS_ENV else "metric"
-    msg.http("http://api.openweathermap.org/data/2.5/weather?q=winnipeg&units=#{unitsKey}&APPID=#{APIKEY}")
-      .header('Accept', 'application/json')
+  robot.respond /weather ?(.+)?/i, (msg) ->
+    location = msg.match[1] || process.env.HUBOT_DARK_SKY_DEFAULT_LOCATION
+    return if not location
+
+    googleurl = "http://maps.googleapis.com/maps/api/geocode/json"
+    q = sensor: false, address: location
+    msg.http(googleurl)
+      .query(q)
       .get() (err, res, body) ->
-        data = JSON.parse(body)
-        if data.message
-          msg.send "#{data.message}"
+        result = JSON.parse(body)
+
+        if result.results.length > 0
+          lat = result.results[0].geometry.location.lat
+          lng = result.results[0].geometry.location.lng
+          darkSkyMe msg, lat,lng , (darkSkyText) ->
+            response = "Weather for #{result.results[0].formatted_address}. #{darkSkyText}"
+            msg.send response
         else
-          msg.send "Forecast for today in #{data.name}, #{data.sys.country}\nCondition: #{data.weather[0].main}, #{data.weather[0].description}\nTemperature (min/max): #{data.main.temp_min}°#{units[unitsKey]} / #{data.main.temp_max}°#{units[unitsKey]}\nHumidity: #{data.main.humidity}%\nType: #{data.sys.type}\n\nLast updated: #{new Date(data.dt * 1000)}"
+          msg.send "Couldn't find #{location}"
+
+darkSkyMe = (msg, lat, lng, cb) ->
+  url = "https://api.forecast.io/forecast/#{process.env.HUBOT_DARK_SKY_API_KEY}/#{lat},#{lng}/"
+  if process.env.HUBOT_DARK_SKY_UNITS
+    url += "?units=#{process.env.HUBOT_DARK_SKY_UNITS}"
+  msg.http(url)
+    .get() (err, res, body) ->
+      result = JSON.parse(body)
+
+      if result.error
+        cb "#{result.error}"
+        return
+
+      isFahrenheit = process.env.HUBOT_DARK_SKY_UNITS == "us"
+      if isFahrenheit
+        fahrenheit = result.currently.temperature
+        celsius = (fahrenheit - 32) * (5 / 9)
+      else
+        celsius = result.currently.temperature
+        fahrenheit = celsius * (9 / 5) + 32
+      response = "Currently: #{result.currently.summary} (#{fahrenheit}°F/"
+      response += "#{celsius}°C). "
+      response += "Today: #{result.hourly.summary} "
+      response += "Coming week: #{result.daily.summary}"
+      cb response

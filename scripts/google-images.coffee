@@ -11,6 +11,9 @@
 #
 # Commands:
 #   hubot <query> me - Queries Google Images for <query> and returns a random top result
+#
+# Author:
+#   Justin
 
 module.exports = (robot) ->
 

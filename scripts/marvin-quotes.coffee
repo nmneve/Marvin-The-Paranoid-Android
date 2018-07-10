@@ -12,6 +12,8 @@
 #   hubot what is up - Tells you what's up
 #   hubot any ideas - Asks for an idea
 #
+# Author:
+#   Justin
 
 feelingsQuotes = [
   "I got very bored and depressed, so I went and plugged myself in to its external computer feed. I talked to the computer at great length and explained my view of the Universe to it. It committed suicide.'"

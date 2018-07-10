@@ -12,6 +12,8 @@
 #   hubot search <query> - Returns the first 5 Wikipedia articles matching the search <query>
 #   hubot describe <article> - Returns a one-line description about <article>
 #
+# Author:
+#   Justin
 
 WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
 WIKI_EN_URL = "https://en.wikipedia.org/wiki"
