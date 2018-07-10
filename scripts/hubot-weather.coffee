@@ -22,7 +22,7 @@ module.exports = (robot) ->
     units = {metric: "C", imperial: "F"}
     UNITS_ENV = process.env.HUBOT_WEATHER_UNITS
     unitsKey = if units[UNITS_ENV] then UNITS_ENV else "metric"
-    if msg.match[1] == null
+    if msg.match[1] == ""
       msg.http("http://api.openweathermap.org/data/2.5/weather?q=#winnipeg&units=#{unitsKey}&APPID=#{APIKEY}")
       .header('Accept', 'application/json')
         .get() (err, res, body) ->
