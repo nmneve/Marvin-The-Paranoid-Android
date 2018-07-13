@@ -104,5 +104,5 @@ darkSkyHourly = (msg, lat, lng, separator, cb) ->
         cb "#{result.error}"
         return
 
-      response = "#{result.hourly}"
+      response = "#{result.hourly.data}"
       cb response
