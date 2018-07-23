@@ -21,4 +21,4 @@ robot.respond /hatch (.+)/i, (msg) ->
     # when sad then "http://123emoji.com/wp-content/uploads/2016/08/6662641023122579966.png"
     # else "Not a supported mood"
 
-    msg.send hatch
+    msg.send mood
