@@ -13,12 +13,13 @@
 # Author:
 #   Justin
 
-robot.respond /hatch (.+)/i, (msg) ->
-    mood = res.match[1].trim()
+module.exports = (robot) ->
+	robot.respond /hatch (.+)/i, (msg) ->
+	    mood = res.match[1].trim()
 
-    # hatch = switch mood
-    # when happy then "http://123emoji.com/wp-content/uploads/2016/08/6662641022915913320.png"
-    # when sad then "http://123emoji.com/wp-content/uploads/2016/08/6662641023122579966.png"
-    # else "Not a supported mood"
+	    # hatch = switch mood
+	    # when happy then "http://123emoji.com/wp-content/uploads/2016/08/6662641022915913320.png"
+	    # when sad then "http://123emoji.com/wp-content/uploads/2016/08/6662641023122579966.png"
+	    # else "Not a supported mood"
 
-    msg.send mood
+	    msg.send mood
