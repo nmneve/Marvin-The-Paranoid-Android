@@ -7,5 +7,6 @@
   "hubot-rules",
   "hubot-plusplus",
   "hubot-improve-random",
-  "hubot-stache"
+  "hubot-stache",
+  "hubot-slack-attachment"
 ]
