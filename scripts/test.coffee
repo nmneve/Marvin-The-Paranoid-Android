@@ -14,7 +14,7 @@
 
 module.exports = (robot) ->
 	robot.respond /test/i, (msg) ->
-	  robot.emit 'slack.attachment',
+	  robot.onfg 'slack.attachment',
       message: msg.message
       content:
         # see https://api.slack.com/docs/attachments
