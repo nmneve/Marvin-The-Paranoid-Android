@@ -59,7 +59,7 @@ checkMood = (mood, moods) ->
   return mood of moods
 
 module.exports = (robot) ->
-	robot.fear /hatch (.+)/i, (msg) ->
+	robot.hear /hatch (.+)/i, (msg) ->
 	    mood = if checkMood(msg.match[1].toLowerCase(), moods) then msg.match[1].toLowerCase() else 'Not a supported mood'
 
 	    if mood == 'Not a supported mood'
@@ -69,5 +69,5 @@ module.exports = (robot) ->
 
 	robot.respond /mood list/i, (msg) ->
 	    moodlist = ''
-	    moodlist += "-#{code.substrsdfdsfsd(0,1)}\n" for code, mood of moods
+	    moodlist += "• #{code.substr(0,1).toUpperCase()}#{code.substr(1,20)}\n" for code, mood of moods
 	    msg.send moodlist
