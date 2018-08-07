@@ -62,4 +62,7 @@ module.exports = (robot) ->
 	robot.hear /hatch (.+)/i, (msg) ->
 	    mood = if checkMood(msg.match[1].toLowerCase(), moods) then msg.match[1].toLowerCase() else 'Not a supported mood'
 
-	    msg.send "#{moods[mood]}\n"
+	    if mood == 'Not a supported mood'
+	    	msg.send "Not a supported mood"
+	    else
+	    	msg.send "#{moods[mood]}\n"
