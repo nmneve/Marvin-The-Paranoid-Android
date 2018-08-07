@@ -12,9 +12,9 @@
 # Author:
 #   Justin
 
-module.exports = (robot) ->
+
 	robot.respond /test/i, (msg) ->
-	  robot.onfg 'slack.attachment',
+	  robot.on 'slack.attachment',
       message: msg.message
       content:
         # see https://api.slack.com/docs/attachments
