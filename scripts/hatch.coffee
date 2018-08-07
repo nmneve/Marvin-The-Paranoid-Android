@@ -69,5 +69,5 @@ module.exports = (robot) ->
 
 	robot.respond /mood list/i, (msg) ->
 	    moodlist = ''
-	    moodlist += "#{code}\n" for code, mood of moods
+	    moodlist += "-#{code}\n" for code, mood of moods
 	    msg.send moodlist
