@@ -66,3 +66,8 @@ module.exports = (robot) ->
 	    	msg.send "Not a supported mood"
 	    else
 	    	msg.send "#{moods[mood]}\n"
+
+	robot.respond /mood list/i, (msg) ->
+	    moodlist = ''
+	    moodlist += "#{code}\n" for code, mood of moods
+	    msg.send moodlist
