@@ -51,7 +51,7 @@ moods =
   "sad": "http://123emoji.com/wp-content/uploads/2016/08/6662641023259246619.png",
   "depressed": "http://123emoji.com/wp-content/uploads/2016/08/6662641023265913285.png",
   "thinking": "http://123emoji.com/wp-content/uploads/2016/08/6662641023275913284.png",
-  "upwards": "http://123emoji.com/wp-content/uploads/2016/08/6662641023285913283.png",
+  "concern": "http://123emoji.com/wp-content/uploads/2016/08/6662641023285913283.png",
   "no": "http://123emoji.com/wp-content/uploads/2016/08/6662641023292579949.png"
 
 
