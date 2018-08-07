@@ -8,7 +8,8 @@
 #   None
 #
 # Commands:
-#   hubot hatch <mood> - Displays a hatch image
+#   hatch <mood> - Displays a hatch image
+#	hubot mood list - Displays a list of hatch moods
 #
 # Author:
 #   Justin
