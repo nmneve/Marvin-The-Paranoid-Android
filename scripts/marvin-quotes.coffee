@@ -8,9 +8,9 @@
 #   None
 #
 # Commands:
-#   hubot how are you - Returns feelings
-#   hubot what is up - Tells you what's up
-#   hubot any ideas - Asks for an idea
+#   how are you doing - Returns feelings
+#   what is up - Tells you what's up
+#   any ideas - Asks for an idea
 #
 # Author:
 #   Justin
@@ -49,7 +49,7 @@ ideaQuotes = [
 ]
 
 module.exports = (robot) ->
-  robot.hear /how are you/i, (msg) ->
+  robot.hear /how are you doing/i, (msg) ->
     msg.send msg.random feelingsQuotes
   robot.hear /what is up/i, (msg) ->
     msg.send msg.random upQuote
