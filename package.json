@@ -21,6 +21,7 @@
     "hubot-shipit": "^0.2.1",
     "hubot-slack": "^4.5.1",
     "hubot-slack-attachment": "^1.0.1",
+    "hubot-slack-utils": "0.0.5",
     "hubot-stache": "^3.0.4",
     "hubot-weather": "^1.0.4",
     "hubot-wikipedia": "0.0.4",
