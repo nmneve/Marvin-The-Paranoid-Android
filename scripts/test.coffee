@@ -12,18 +12,18 @@
 # Author:
 #   Justin
 
-
-	robot.respond /test/i, (msg) ->
-	  robot.on 'slack.attachment',
-      message: msg.message
-      content:
-        # see https://api.slack.com/docs/attachments
-        text: "Attachment text"
-        fallback: "Attachment fallback"
-        fields: [{
-          title: "Field title"
-          value: "Field value"
-        }]
-      username: "foobot" # optional, defaults to robot.name
-      icon_url: "..." # optional
-      icon_emoji: "..." # optional
+# module.exports = (robot) ->
+# 	robot.respond /test/i, (msg) ->
+# 	  msgData = {
+#         channel: msg.envelope.user.name
+#         attachments: [
+#           {
+#             fallback: "Fallback text here.",
+#             color: "danger",
+#             title: "Title text here"
+#             text: "Main body text"
+#             mrkdwn_in: ["text"]
+#           }
+#         ]
+#       }
+#     robot.adapter.customMessage msgData
