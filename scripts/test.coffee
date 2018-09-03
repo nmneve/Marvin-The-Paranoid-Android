@@ -35,6 +35,4 @@ module.exports = (robot) ->
   web = new WebClient robot.adapter.options.token
 
   robot.hear /test/i, (res) ->
-    web.api.test()
-      .then () -> res.send "Your connection to the Slack API is working!"
-      .catch (error) -> res.send "Your connection to the Slack API failed :("
+    web.api.test().then () -> res.send "Your connection to the Slack API is working!"
