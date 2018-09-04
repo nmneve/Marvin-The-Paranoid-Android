@@ -52,4 +52,4 @@ module.exports = (robot) ->
     web.chat.update
       channel: "GBBM27QHJ",
       text: "Tost",
-      timestamp: 1536011945.000100
+      timestamp: "1536011945.000100"
