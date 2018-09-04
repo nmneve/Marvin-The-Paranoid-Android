@@ -50,6 +50,6 @@ module.exports = (robot) ->
   robot.hear /test/i, (res) ->
     
     web.chat.update
-      channel: res.message.item.channel,
+      channel: "GBBM27QHJ",
       text: "Tost",
       timestamp: res.message.item.ts
