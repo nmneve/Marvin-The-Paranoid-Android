@@ -50,6 +50,6 @@ module.exports = (robot) ->
   robot.react (res) ->
     
     web.chat.update
-      channel: msg.message.item.channel,
+      channel: res.message.item.channel,
       text: "Helo World",
-      timestamp: msg.message.item.ts
+      timestamp: res.message.item.ts
