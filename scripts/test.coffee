@@ -34,5 +34,15 @@
 module.exports = (robot) ->
   web = new WebClient robot.adapter.options.token
 
-  robot.hear /test/i, (res) ->
-    web.api.test().then () -> res.send "Your connection to the Slack API is working!"
+  # robot.hear /test/i, (res) ->
+  #   web.api.test().then () -> res.send "Your connection to the Slack API is working!"
+  robot.react (res) ->
+
+    # res.message is a ReactionMessage instance that represents the reaction Hubot just heard
+    if res.message.type == "added" and res.message.item.type == "message"
+
+      # res.messsage.reaction is the emoji alias for the reaction Hubot just heard
+      web.reactions.add
+        name: res.message.reaction,
+        channel: res.message.item.channel,
+        timestamp: res.message.item.ts
