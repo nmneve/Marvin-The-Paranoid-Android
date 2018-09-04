@@ -8,6 +8,5 @@
   "hubot-plusplus",
   "hubot-improve-random",
   "hubot-stache",
-  "hubot-slack-attachment",
-  "hubot-slack-utils"
+  "hubot-slack-attachment"
 ]
