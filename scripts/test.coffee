@@ -47,7 +47,7 @@ module.exports = (robot) ->
         channel: res.message.item.channel,
         timestamp: res.message.item.ts
 
-  robot.hear /test/i, (msg) ->
+  robot.react (res) ->
     
     web.chat.update
       channel: msg.message.item.channel,
